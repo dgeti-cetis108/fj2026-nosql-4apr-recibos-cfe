@@ -19,6 +19,9 @@ while (true)
         case 3:
             mongo.MostrarRecibos();
             break;
+        case 4:
+            mostrarDetalleDeRecibo();
+            break;
         case 6:
             Environment.Exit(0);
             break;
@@ -27,6 +30,28 @@ while (true)
             Console.ReadKey();
             break;
     }
+}
+
+void mostrarDetalleDeRecibo()
+{
+    Console.Clear();
+    Console.WriteLine("Ingresa el número de servicio a buscar");
+    string servicio = Console.ReadLine()!;
+    Console.WriteLine("Ingresa el periodo a buscar");
+    string periodo = Console.ReadLine()!;
+
+    var recibo = mongo.BuscarReciboPorNúmeroDeServicioYMes(servicio, periodo);
+    if (recibo is not null)
+    {
+        Console.WriteLine($"No. Servicio: {servicio}, Periodo: {periodo}");
+        Console.WriteLine($"Kwh: {recibo.CantidadKwhDelPeriodo}");
+        Console.WriteLine($"Total: ${recibo.CostoTotal}");
+    }
+    else
+    {
+        Console.WriteLine("Recibo no encontrado, vuelve a intentar");
+    }
+    Console.ReadKey();
 }
 
 void calcularCostosDeRecibos()

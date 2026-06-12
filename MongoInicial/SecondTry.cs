@@ -43,5 +43,13 @@ public class SecondTry
         // TODO: Completar la actualización
         coleccion.ReplaceOne(r => r._id == recibo._id, recibo);
     }
+
+    public ReciboCFE BuscarReciboPorNúmeroDeServicioYMes(string número, string mes)
+    {
+        return coleccion.Find(
+                            r => r.NúmeroDeServicio == número
+                            && r.PeriodoMes == mes)
+                        .FirstOrDefault<ReciboCFE>();
+    }
 }
 
